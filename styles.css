@@ -101,7 +101,7 @@ body {
 
 .search-bar button {
     position: absolute;
-    right: 5px;
+    right: 2px; /* 5px → 2px로 축소 */
     top: 50%;
     transform: translateY(-50%);
     background: #000;
@@ -1122,8 +1122,11 @@ body {
     }
     
     .search-bar button {
-        padding: 6px 8px; /* 6px 10px → 6px 8px로 축소 */
+        padding: 6px 8px;
         font-size: 12px;
+        right: 1px; /* 모바일에서 더 밀착 */
+        width: 36px; /* 40px → 36px로 축소 */
+        height: 36px; /* 40px → 36px로 축소 */
     }
     
     .header-icons {
