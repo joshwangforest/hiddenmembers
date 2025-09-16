@@ -1101,26 +1101,29 @@ body {
     .header-main {
         padding: 10px 0;
         flex-wrap: wrap;
+        gap: 8px;
     }
     
     .logo-image {
-        height: 24px;
-        max-width: 100px;
+        height: 32px; /* 24px → 32px로 증가 */
+        max-width: 140px; /* 100px → 140px로 증가 */
     }
     
     .search-bar {
-        flex: 1;
+        flex: 0.7; /* flex: 1 → 0.7로 축소 */
         margin: 0 8px;
         min-width: 0;
+        max-width: 200px; /* 최대 너비 제한 */
     }
     
     .search-bar input {
-        font-size: 13px;
-        padding: 6px 10px;
+        font-size: 12px; /* 13px → 12px로 축소 */
+        padding: 6px 8px; /* 6px 10px → 6px 8px로 축소 */
     }
     
     .search-bar button {
-        padding: 6px 10px;
+        padding: 6px 8px; /* 6px 10px → 6px 8px로 축소 */
+        font-size: 12px;
     }
     
     .header-icons {
@@ -1190,7 +1193,7 @@ body {
     .rolling-banner {
         width: 100%;
         max-width: 720px;
-        height: 320px;
+        height: 600px;
         margin: 0 auto 15px;
         border-radius: 8px;
         overflow: hidden;
@@ -1199,7 +1202,7 @@ body {
     
     .banner-image {
         width: 720px;
-        height: 320px;
+        height: 600px;
         object-fit: cover;
         object-position: center;
         margin: auto;
