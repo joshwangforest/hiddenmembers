@@ -1071,6 +1071,102 @@ body {
     color: #ccc;
 }
 
+/* 모바일 환경 최적화 */
+@media (max-width: 768px) {
+    /* 헤더 최적화 */
+    .header-top {
+        padding: 6px 0;
+        font-size: 11px;
+    }
+    
+    .header-top-left span {
+        font-size: 10px;
+        line-height: 1.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .header-top-right {
+        gap: 6px;
+        flex-shrink: 0;
+    }
+    
+    .top-menu-link {
+        font-size: 10px;
+        padding: 3px 5px;
+        white-space: nowrap;
+    }
+    
+    .header-main {
+        padding: 10px 0;
+        flex-wrap: wrap;
+    }
+    
+    .logo-image {
+        height: 24px;
+        max-width: 100px;
+    }
+    
+    .search-bar {
+        flex: 1;
+        margin: 0 8px;
+        min-width: 0;
+    }
+    
+    .search-bar input {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+    
+    .search-bar button {
+        padding: 6px 10px;
+    }
+    
+    .header-icons {
+        gap: 6px;
+        flex-shrink: 0;
+    }
+    
+    .cart-icon {
+        padding: 6px;
+    }
+    
+    .cart-count {
+        font-size: 9px;
+        padding: 1px 4px;
+    }
+    
+    /* 메인 네비게이션 최적화 */
+    .main-nav {
+        padding: 6px 0;
+    }
+    
+    .nav-menu {
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-item > a {
+        font-size: 13px;
+        padding: 6px 10px;
+        white-space: nowrap;
+    }
+    
+    .dropdown-menu {
+        top: 100%;
+        left: 0;
+        min-width: 180px;
+        padding: 6px 0;
+    }
+    
+    .dropdown-menu li a {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
 /* 추가 반응형 디자인 */
 @media (max-width: 480px) {
     .split-layout {
@@ -1093,20 +1189,158 @@ body {
     
     .rolling-banner {
         width: 100%;
-        max-width: 720px;
-        height: 720px;
-        margin: 0 auto;
+        max-width: 100%;
+        height: 250px;
+        margin: 0 auto 15px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     
     .banner-image {
-        width: 720px;
-        height: 720px;
-        margin: auto;
-        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
     }
     
+    .banner-dots {
+        margin-top: 10px;
+        gap: 6px;
+        justify-content: center;
+    }
     
-    .mobile-header {
+    .dot {
+        width: 6px;
+        height: 6px;
+        min-width: 6px;
+        min-height: 6px;
+    }
+    
+    .mobile-shopping {
+        height: auto;
+        min-height: 350px;
+        padding: 10px;
+        margin: 0;
+    }
+    
+    .quick-menu-container {
+        margin: 15px 0;
+        padding: 0 5px;
+    }
+    
+    .quick-items {
+        gap: 12px;
+        padding: 12px 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .mobile-quick-item {
+        min-width: 55px;
+        padding: 10px 6px;
+        flex-shrink: 0;
+    }
+    
+    .mobile-quick-item .quick-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+    
+    .icon-image {
+        width: 28px;
+        height: 28px;
+        margin-bottom: 4px;
+    }
+    
+    .mobile-quick-item span {
+        font-size: 10px;
+        line-height: 1.2;
+        font-weight: 500;
+        color: #333;
+    }
+    
+    .section-title {
+        margin: 20px 0 12px;
+        padding: 0 5px;
+    }
+    
+    .section-title h3 {
+        font-size: 16px;
+        margin-bottom: 6px;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+    
+    .section-title p {
+        font-size: 12px;
+        color: #666;
+        font-weight: 400;
+    }
+    
+    .price-buttons {
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        margin-top: 10px;
+    }
+    
+    /* 터치 친화적 최적화 */
+    .price-btn {
+        min-height: 40px;
+        touch-action: manipulation;
+        padding: 8px 10px;
+        font-size: 12px;
+        border-radius: 6px;
+    }
+    
+    .mobile-quick-item {
+        min-height: 40px;
+        touch-action: manipulation;
+    }
+    
+    .dot {
+        min-width: 20px;
+        min-height: 20px;
+        touch-action: manipulation;
+    }
+    
+    .scroll-btn {
+        min-width: 40px;
+        min-height: 40px;
+        touch-action: manipulation;
+    }
+    
+    /* 간격 최적화 */
+    .mobile-shopping > * + * {
+        margin-top: 15px;
+    }
+    
+    .quick-menu-container + .section-title {
+        margin-top: 25px;
+    }
+    
+    .section-title + .promotion-banner {
+        margin-top: 12px;
+    }
+    
+    .promotion-banner + .product-carousel {
+        margin-top: 15px;
+    }
+    
+    /* 컨테이너 최적화 */
+    .container {
+        padding: 0 10px;
+    }
+    
+    .split-layout {
+        padding: 0;
+        gap: 0;
+    }
+    
+    .left-sidebar {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
         padding: 15px;
     }
     
