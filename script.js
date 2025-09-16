@@ -482,55 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     
-    // 퀵 메뉴 스크롤 기능
-    let quickMenuScrollPosition = 0;
-    const scrollAmount = 200; // 스크롤할 픽셀 수
     
-    window.scrollQuickMenu = function(direction) {
-        const quickItems = document.querySelector('.quick-items');
-        const quickItemsWrapper = document.querySelector('.quick-items-wrapper');
-        
-        if (!quickItems || !quickItemsWrapper) {
-            return;
-        }
-        
-        const maxScroll = quickItems.scrollWidth - quickItemsWrapper.clientWidth;
-        
-        if (direction === 'left') {
-            quickMenuScrollPosition = Math.max(0, quickMenuScrollPosition - scrollAmount);
-        } else if (direction === 'right') {
-            quickMenuScrollPosition = Math.min(maxScroll, quickMenuScrollPosition + scrollAmount);
-        }
-        
-        quickItems.style.transform = `translateX(-${quickMenuScrollPosition}px)`;
-        
-        // 버튼 상태 업데이트
-        updateScrollButtons();
-    };
-    
-    function updateScrollButtons() {
-        const quickItems = document.querySelector('.quick-items');
-        const quickItemsWrapper = document.querySelector('.quick-items-wrapper');
-        const prevBtn = document.querySelector('.scroll-btn.prev-btn');
-        const nextBtn = document.querySelector('.scroll-btn.next-btn');
-        
-        if (!quickItems || !quickItemsWrapper) return;
-        
-        const maxScroll = quickItems.scrollWidth - quickItemsWrapper.clientWidth;
-        
-        if (prevBtn) {
-            prevBtn.style.opacity = quickMenuScrollPosition > 0 ? '1' : '0.3';
-            prevBtn.style.pointerEvents = quickMenuScrollPosition > 0 ? 'auto' : 'none';
-        }
-        
-        if (nextBtn) {
-            nextBtn.style.opacity = quickMenuScrollPosition < maxScroll ? '1' : '0.3';
-            nextBtn.style.pointerEvents = quickMenuScrollPosition < maxScroll ? 'auto' : 'none';
-        }
-    }
-    
-    // 초기 버튼 상태 설정
-    setTimeout(updateScrollButtons, 100);
     
     
     // 모든 상품 캐러셀에 초정밀 스와이프 기능 적용

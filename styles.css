@@ -1189,8 +1189,8 @@ body {
     
     .rolling-banner {
         width: 100%;
-        max-width: 100%;
-        height: 250px;
+        max-width: 720px;
+        height: 720px;
         margin: 0 auto 15px;
         border-radius: 8px;
         overflow: hidden;
@@ -1198,10 +1198,12 @@ body {
     }
     
     .banner-image {
-        width: 100%;
-        height: 100%;
+        width: 720px;
+        height: 720px;
         object-fit: cover;
         object-position: center;
+        margin: auto;
+        display: block;
     }
     
     .banner-dots {
@@ -1230,34 +1232,49 @@ body {
     }
     
     .quick-items {
-        gap: 12px;
-        padding: 12px 0;
+        gap: 20px;
+        padding: 15px 0;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        justify-content: center;
+        flex-wrap: wrap;
     }
     
     .mobile-quick-item {
-        min-width: 55px;
-        padding: 10px 6px;
+        min-width: 70px;
+        padding: 15px 10px;
         flex-shrink: 0;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-quick-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     
     .mobile-quick-item .quick-icon {
-        font-size: 20px;
-        margin-bottom: 4px;
+        font-size: 28px;
+        margin-bottom: 8px;
+        color: #e1f800;
     }
     
     .icon-image {
-        width: 28px;
-        height: 28px;
-        margin-bottom: 4px;
+        width: 36px;
+        height: 36px;
+        margin-bottom: 8px;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
     
     .mobile-quick-item span {
-        font-size: 10px;
-        line-height: 1.2;
-        font-weight: 500;
-        color: #333;
+        font-size: 12px;
+        line-height: 1.3;
+        font-weight: 600;
+        color: #2c3e50;
+        text-align: center;
+        display: block;
     }
     
     .section-title {
