@@ -1197,21 +1197,20 @@ body {
     }
     
     .rolling-banner {
+        position: relative;
         width: 100%;
-        max-width: 100%;
-        height: auto;
-        margin: 15px auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        height: 400px;
+        overflow: hidden;
+        border-bottom: 1px solid #000;
         background: #f8f9fa;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .banner-image {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: contain;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
