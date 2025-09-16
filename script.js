@@ -525,6 +525,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const allCarouselWrappers = document.querySelectorAll('.carousel-wrapper');
     allCarouselWrappers.forEach(initCarouselScroll);
     
+    // PC 버전 캐러셀 좌우 이동 버튼 기능
+    initCarouselButtons();
+    
     // 가격 필터 버튼 기능 초기화
     initPriceButtons();
 });
@@ -543,6 +546,46 @@ function initPriceButtons() {
             // 가격 필터링 로직 (실제 구현에서는 상품 데이터를 필터링)
             const priceRange = this.textContent.trim();
             console.log(`가격 필터 적용: ${priceRange}`);
+        });
+    });
+}
+
+// 캐러셀 버튼 기능
+function initCarouselButtons() {
+    const carouselButtons = document.querySelectorAll('.carousel-btn');
+    
+    carouselButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const carouselContainer = this.closest('.carousel-container');
+            const carouselWrapper = carouselContainer.querySelector('.carousel-wrapper');
+            const slides = carouselWrapper.querySelectorAll('.carousel-slide');
+            
+            if (slides.length === 0) return;
+            
+            const slideWidth = slides[0].offsetWidth;
+            const slideMargin = parseInt(getComputedStyle(slides[0]).marginRight) || 0;
+            const slideTotalWidth = slideWidth + slideMargin;
+            const containerWidth = carouselWrapper.clientWidth;
+            const visibleSlides = Math.floor(containerWidth / slideTotalWidth);
+            
+            if (this.classList.contains('carousel-btn-prev')) {
+                // 이전 버튼: 현재 스크롤 위치에서 한 화면만큼 왼쪽으로
+                const currentScroll = carouselWrapper.scrollLeft;
+                const targetScroll = Math.max(0, currentScroll - (slideTotalWidth * visibleSlides));
+                carouselWrapper.scrollTo({
+                    left: targetScroll,
+                    behavior: 'smooth'
+                });
+            } else if (this.classList.contains('carousel-btn-next')) {
+                // 다음 버튼: 현재 스크롤 위치에서 한 화면만큼 오른쪽으로
+                const currentScroll = carouselWrapper.scrollLeft;
+                const maxScroll = carouselWrapper.scrollWidth - carouselWrapper.clientWidth;
+                const targetScroll = Math.min(maxScroll, currentScroll + (slideTotalWidth * visibleSlides));
+                carouselWrapper.scrollTo({
+                    left: targetScroll,
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 }

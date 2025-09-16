@@ -607,7 +607,7 @@ body {
     transition: transform 0.3s ease;
     padding: 5px 0;
     justify-content: center; /* PC에서 중앙 정렬 */
-    flex-wrap: wrap; /* PC에서 여러 줄로 표시 가능 */
+    flex-wrap: nowrap; /* 1행으로 고정 */
 }
 
 .mobile-quick-item {
@@ -705,6 +705,51 @@ body {
     width: 100%;
     max-width: 720px;
     margin: 0 auto;
+}
+
+/* PC 버전 캐러셀 버튼 스타일 */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e9ecef;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0.8;
+}
+
+.carousel-btn:hover {
+    background: #e1f800;
+    border-color: #e1f800;
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 12px rgba(225, 248, 0, 0.3);
+}
+
+.carousel-btn-prev {
+    left: -20px;
+}
+
+.carousel-btn-next {
+    right: -20px;
+}
+
+.carousel-btn i {
+    font-size: 14px;
+    color: #333;
+}
+
+.carousel-btn:hover i {
+    color: #333;
 }
 
 .carousel-wrapper {
@@ -1441,6 +1486,11 @@ body {
     
     .carousel-container {
         max-width: 100%;
+    }
+    
+    /* 모바일에서는 캐러셀 버튼 숨기기 */
+    .carousel-btn {
+        display: none;
     }
     
     .carousel-slide {
