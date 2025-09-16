@@ -1,12 +1,15 @@
+// DOM이 로드된 후 실행
 document.addEventListener('DOMContentLoaded', function() {
-    // 메인 검색 기능
+    
+    // 좌측 검색 기능
+    const mainSearchInput = document.querySelector('.main-search');
     const searchBtn = document.querySelector('.search-btn');
-    const mainSearchInput = document.querySelector('.main-search-input');
     
     function performMainSearch() {
         const searchTerm = mainSearchInput.value.trim();
         if (searchTerm) {
-            showToast(`"${searchTerm}" 검색 결과를 표시합니다.`);
+            alert(`"${searchTerm}" 검색 결과를 보여드리겠습니다.`);
+            // 실제 구현에서는 검색 결과를 필터링하여 표시
             filterProducts(searchTerm);
         }
     }
@@ -23,8 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryItems.forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
-            const category = this.textContent.trim();
-            showToast(`${category} 카테고리로 필터링합니다.`);
+            
+            // 활성 상태 변경
+            categoryItems.forEach(cat => cat.classList.remove('active'));
+            this.classList.add('active');
+            
+            const category = this.textContent;
+            alert(`${category} 카테고리로 필터링합니다.`);
             filterByCategory(category);
         });
     });
@@ -36,9 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (priceSlider) {
         priceSlider.addEventListener('input', function() {
-            const value = this.value;
-            minPriceSpan.textContent = `${value}만원`;
-            maxPriceSpan.textContent = `${value}만원`;
+            const value = parseInt(this.value);
+            maxPriceSpan.textContent = value.toLocaleString() + '원';
+            filterByPrice(value);
         });
     }
     
@@ -48,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
         checkbox.addEventListener('change', function() {
             const selectedBrands = Array.from(brandCheckboxes)
                 .filter(cb => cb.checked)
-                .map(cb => cb.nextElementSibling.textContent.trim());
-            showToast(`선택된 브랜드: ${selectedBrands.join(', ')}`);
+                .map(cb => cb.parentElement.textContent.trim());
+            
             filterByBrand(selectedBrands);
         });
     });
@@ -60,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
         brandSearchInput.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             const brandItems = document.querySelectorAll('.brand-list li');
+            
             brandItems.forEach(item => {
                 const brandName = item.textContent.toLowerCase();
                 if (brandName.includes(searchTerm)) {
@@ -76,10 +85,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileCartIcon = document.querySelector('.mobile-cart');
     let cartItems = 0;
     
-    function updateCartBadge() {
+    function updateMobileCartCount() {
         if (mobileCartBadge) {
             mobileCartBadge.textContent = cartItems;
-            mobileCartBadge.style.display = cartItems > 0 ? 'block' : 'none';
+            mobileCartBadge.style.display = cartItems > 0 ? 'flex' : 'none';
         }
     }
     
@@ -89,12 +98,12 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
             cartItems++;
-            updateCartBadge();
+            updateMobileCartCount();
             
             // 버튼 애니메이션
             this.style.transform = 'scale(0.95)';
             setTimeout(() => {
-                this.style.transform = 'scale(1)';
+                this.style.transform = '';
             }, 150);
             
             // 토스트 메시지 표시
@@ -106,7 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileProductItems = document.querySelectorAll('.mobile-product-item');
     mobileProductItems.forEach(item => {
         item.addEventListener('click', function() {
-            showToast('상품 상세 페이지로 이동합니다.');
+            const productName = this.querySelector('h4').textContent;
+            alert(`${productName} 상품 상세 페이지로 이동합니다.`);
         });
     });
     
@@ -115,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileCartIcon.addEventListener('click', function(e) {
             e.preventDefault();
             if (cartItems > 0) {
-                showToast('장바구니 페이지로 이동합니다.');
+                alert(`장바구니에 ${cartItems}개의 상품이 있습니다.`);
             } else {
                 alert('장바구니가 비어있습니다.');
             }
@@ -177,27 +187,20 @@ document.addEventListener('DOMContentLoaded', function() {
         toast.style.cssText = `
             position: fixed;
             top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
+            right: 20px;
+            background: #28a745;
             color: white;
-            padding: 12px 24px;
-            border-radius: 6px;
-            z-index: 1000;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
         `;
         
         document.body.appendChild(toast);
         
-        // 애니메이션
         setTimeout(() => {
-            toast.style.opacity = '1';
-        }, 100);
-        
-        setTimeout(() => {
-            toast.style.opacity = '0';
+            toast.style.animation = 'slideOutRight 0.3s ease-in';
             setTimeout(() => {
                 document.body.removeChild(toast);
             }, 300);
@@ -209,9 +212,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (loginBtn) {
         loginBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            if (this.textContent === '로그인') {
+            const isLoggedIn = Math.random() > 0.5; // 임시 로직
+            
+            if (isLoggedIn) {
                 this.textContent = '로그아웃';
-                showToast('로그인되었습니다.');
+                showToast('로그인되었습니다!');
             } else {
                 this.textContent = '로그인';
                 showToast('로그아웃되었습니다.');
@@ -226,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        if (scrollTop > lastScrollTop) {
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
             // 스크롤 다운
             header.style.transform = 'translateY(-100%)';
         } else {
@@ -256,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const animatedElements = document.querySelectorAll('.mobile-product-item, .section-title');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
+        el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
@@ -265,9 +270,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             // ESC 키로 모달이나 드롭다운 닫기
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                modal.style.display = 'none';
+            const dropdowns = document.querySelectorAll('.dropdown-menu');
+            dropdowns.forEach(dropdown => {
+                dropdown.style.opacity = '0';
+                dropdown.style.visibility = 'hidden';
             });
         }
     });
@@ -276,7 +282,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         img.addEventListener('error', function() {
-            this.style.display = 'none';
+            this.src = 'memberslogo.png';
+            this.alt = '이미지를 불러올 수 없습니다';
         });
     });
     
@@ -299,14 +306,14 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('load', function() {
         document.body.classList.add('loaded');
         
-        // 초기 애니메이션 실행
-        const initialElements = document.querySelectorAll('.mobile-product-item');
-        initialElements.forEach((el, index) => {
-            setTimeout(() => {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }, index * 100);
-        });
+        // 초기 장바구니 상태 업데이트
+        updateMobileCartCount();
+        
+        // 성능 모니터링
+        if ('performance' in window) {
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            console.log(`페이지 로딩 시간: ${loadTime}ms`);
+        }
     });
     
     // CSS 애니메이션 키프레임 추가
@@ -354,7 +361,11 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(function() {
-            if (window.innerWidth <= 768) {
+            // 화면 크기 변경 시 필요한 작업들
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // 모바일 환경에서의 특별한 처리
                 document.body.classList.add('mobile');
             } else {
                 document.body.classList.remove('mobile');
@@ -372,17 +383,18 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSlide = 0;
     let slideInterval;
     const slides = document.querySelectorAll('.banner-slide');
-    const dots = document.querySelectorAll('.banner-dot');
+    const dots = document.querySelectorAll('.dot');
     const totalSlides = slides.length;
     
     function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.style.opacity = i === index ? '1' : '0';
-        });
+        // 모든 슬라이드 비활성화
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
         
-        dots.forEach(dot => {
-            dot.classList.remove('active');
-        });
+        // 현재 슬라이드 활성화
+        if (slides[index]) {
+            slides[index].classList.add('active');
+        }
         if (dots[index]) {
             dots[index].classList.add('active');
         }
@@ -411,9 +423,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 도트 클릭 이벤트 (addEventListener 방식)
     dots.forEach((dot, index) => {
-        dot.addEventListener('click', function() {
-            currentSlide = index;
+        dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            const slideIndex = parseInt(dot.getAttribute('data-slide'));
+            currentSlide = slideIndex;
             showSlide(currentSlide);
+            
+            // 자동 롤링 재시작
             stopAutoSlide();
             startAutoSlide();
         });
@@ -465,6 +481,10 @@ document.addEventListener('DOMContentLoaded', function() {
         startAutoSlide();
     };
     
+    
+    
+    
+    
     // 모든 상품 캐러셀에 퀵메뉴와 동일한 스크롤 기능 적용
     function initCarouselScroll(carouselWrapper) {
         if (!carouselWrapper) return;
@@ -508,6 +528,238 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 기본 커서 설정
         carouselWrapper.style.cursor = 'grab';
+        
+        // 최대 스크롤 범위 계산 - 마지막 상품까지 정확히 설정
+        function updateMaxScroll() {
+            // 모든 상품 슬라이드의 총 너비에서 컨테이너 너비를 뺀 값
+            const slides = carouselWrapper.querySelectorAll('.carousel-slide');
+            if (slides.length > 0) {
+                const slideWidth = slides[0].offsetWidth;
+                const slideMargin = parseInt(getComputedStyle(slides[0]).marginRight) || 0;
+                const totalSlidesWidth = slides.length * (slideWidth + slideMargin);
+                const containerWidth = carouselWrapper.clientWidth;
+                
+                // 마지막 상품이 완전히 보이도록 계산
+                maxScrollLeft = Math.max(0, totalSlidesWidth - containerWidth);
+            } else {
+                maxScrollLeft = carouselWrapper.scrollWidth - carouselWrapper.clientWidth;
+            }
+        }
+        
+        // 초기 최대 스크롤 범위 설정
+        updateMaxScroll();
+        
+        // 윈도우 리사이즈 시 최대 스크롤 범위 업데이트
+        window.addEventListener('resize', updateMaxScroll);
+        
+        // 고성능 부드러운 스크롤 함수 - 개선된 버전 (더 빠르게)
+        function smoothScrollTo(target, duration = 100) {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            
+            // 스크롤 범위 제한
+            const clampedTarget = Math.max(0, Math.min(target, maxScrollLeft));
+            
+            const start = carouselWrapper.scrollLeft;
+            const distance = clampedTarget - start;
+            const startTime = performance.now();
+            
+            function animateScroll(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // 더 부드러운 easeOutCubic 함수
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                
+                carouselWrapper.scrollLeft = start + (distance * easeProgress);
+                
+                if (progress < 1) {
+                    animationId = requestAnimationFrame(animateScroll);
+                } else {
+                    animationId = null;
+                }
+            }
+            
+            animationId = requestAnimationFrame(animateScroll);
+        }
+        
+        // 속도 계산 개선
+        function calculateVelocity(currentX, currentTime) {
+            velocityHistory.push({ x: currentX, time: currentTime });
+            
+            // 최근 5개 포인트만 유지
+            if (velocityHistory.length > 5) {
+                velocityHistory.shift();
+            }
+            
+            if (velocityHistory.length >= 2) {
+                const recent = velocityHistory[velocityHistory.length - 1];
+                const previous = velocityHistory[velocityHistory.length - 2];
+                const deltaX = recent.x - previous.x;
+                const deltaTime = recent.time - previous.time;
+                
+                if (deltaTime > 0) {
+                    return deltaX / deltaTime;
+                }
+            }
+            return 0;
+        }
+        
+        // 터치 시작 - 최적화
+        // 터치 시작 - 초정밀 버전
+        carouselWrapper.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].pageX;
+            currentX = carouselWrapper.scrollLeft;
+            isDragging = true;
+            velocity = 0;
+            lastTime = performance.now();
+            lastX = startX;
+            velocityHistory = [];
+            
+            // 기존 애니메이션 중단
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            
+            // 터치 최적화 설정 - 더 민감하게
+            carouselWrapper.style.touchAction = 'none';
+            carouselWrapper.style.userSelect = 'none';
+            carouselWrapper.style.webkitUserSelect = 'none';
+            carouselWrapper.style.webkitTouchCallout = 'none';
+        }, { passive: true });
+        
+        // 터치 이동 - 초정밀 스와이프 개선 (더 민감하게)
+        carouselWrapper.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            const currentTime = performance.now();
+            const currentTouchX = e.touches[0].pageX;
+            
+            // 실시간 속도 계산 - 더 정밀한 버전
+            velocity = calculateVelocity(currentTouchX, currentTime);
+            
+            // 즉시 스크롤 적용 (지연 없음) - 더 민감한 반응
+            const moveX = currentTouchX - startX;
+            const newScrollLeft = currentX - moveX;
+            
+            // 스크롤 범위 제한으로 빈 배경 방지 - 더 엄격한 제한
+            carouselWrapper.scrollLeft = Math.max(0, Math.min(newScrollLeft, maxScrollLeft));
+            
+            lastTime = currentTime;
+            lastX = currentTouchX;
+        }, { passive: false });
+        
+        // 터치 종료 - 고성능 관성 스크롤 개선 (더 빠르게)
+        carouselWrapper.addEventListener('touchend', function() {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            // 스타일 복원
+            carouselWrapper.style.touchAction = 'auto';
+            carouselWrapper.style.userSelect = 'auto';
+            carouselWrapper.style.webkitUserSelect = 'auto';
+            carouselWrapper.style.webkitTouchCallout = 'auto';
+            
+            // 강화된 관성 스크롤 - 더 빠르고 민감하게
+            if (Math.abs(velocity) > 0.01) { // 임계값 낮춤 (0.03 → 0.01)
+                const inertia = velocity * 400; // 관성 강도 대폭 증가 (200 → 400)
+                const targetScroll = carouselWrapper.scrollLeft - inertia;
+                smoothScrollTo(targetScroll, 80); // 더 빠른 애니메이션 (120 → 80)
+            }
+        }, { passive: true });
+        
+        // 마우스 드래그 - 초정밀 안정화 버전 개선
+        carouselWrapper.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            startX = e.pageX;
+            currentX = carouselWrapper.scrollLeft;
+            isDragging = true;
+            
+            // 스타일 즉시 적용
+            carouselWrapper.style.cursor = 'grabbing';
+            carouselWrapper.style.userSelect = 'none';
+            carouselWrapper.style.pointerEvents = 'none';
+            carouselWrapper.style.touchAction = 'none';
+            
+            let mouseVelocity = 0;
+            let lastMouseTime = performance.now();
+            let lastMouseX = e.pageX;
+            velocityHistory = [];
+            
+            // 기존 애니메이션 즉시 중단
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            
+            // 마우스 이동 이벤트 - 초정밀 버전 개선
+            function handleMouseMove(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const currentTime = performance.now();
+                const currentMouseX = e.pageX;
+                
+                // 실시간 속도 계산
+                mouseVelocity = calculateVelocity(currentMouseX, currentTime);
+                
+                // 즉시 스크롤 적용 (지연 없음) - 범위 제한
+                const moveX = currentMouseX - startX;
+                const newScrollLeft = currentX - moveX;
+                
+                // 스크롤 범위 제한으로 빈 배경 방지
+                carouselWrapper.scrollLeft = Math.max(0, Math.min(newScrollLeft, maxScrollLeft));
+                
+                lastMouseTime = currentTime;
+                lastMouseX = currentMouseX;
+            }
+            
+            // 마우스 업 이벤트 - 고성능 관성 적용 개선
+            function handleMouseUp(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                e.stopPropagation();
+                
+                isDragging = false;
+                
+                // 스타일 복원
+                carouselWrapper.style.cursor = 'grab';
+                carouselWrapper.style.userSelect = 'auto';
+                carouselWrapper.style.pointerEvents = 'auto';
+                carouselWrapper.style.touchAction = 'auto';
+                
+                // 강화된 관성 스크롤 적용 - 범위 제한 (더 빠르게)
+                if (Math.abs(mouseVelocity) > 0.01) { // 임계값 낮춤 (0.03 → 0.01)
+                    const inertia = mouseVelocity * 400; // 관성 강도 대폭 증가 (200 → 400)
+                    const targetScroll = carouselWrapper.scrollLeft - inertia;
+                    smoothScrollTo(targetScroll, 60); // 더 빠른 애니메이션 (100 → 60)
+                }
+                
+                // 이벤트 리스너 제거
+                document.removeEventListener('mousemove', handleMouseMove, { passive: false });
+                document.removeEventListener('mouseup', handleMouseUp, { passive: false });
+                document.removeEventListener('mouseleave', handleMouseUp, { passive: false });
+            }
+            
+            // 마우스가 창 밖으로 나갔을 때 처리
+            function handleMouseLeave() {
+                handleMouseUp({ preventDefault: () => {}, stopPropagation: () => {} });
+            }
+            
+            // 이벤트 리스너 추가 (passive: false로 설정)
+            document.addEventListener('mousemove', handleMouseMove, { passive: false });
+            document.addEventListener('mouseup', handleMouseUp, { passive: false });
+            document.addEventListener('mouseleave', handleMouseLeave, { passive: false });
+        });
+        
+        // 커서 스타일 설정
+        carouselWrapper.style.cursor = 'grab';
     }
     
     // 모든 캐러셀에 퀵메뉴와 동일한 스크롤 기능 적용
@@ -521,17 +773,29 @@ document.addEventListener('DOMContentLoaded', function() {
 // 가격 필터 버튼 기능
 function initPriceButtons() {
     const priceButtons = document.querySelectorAll('.price-btn');
-    priceButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
+    
+    priceButtons.forEach(button => {
+        button.addEventListener('click', function() {
             // 모든 버튼에서 active 클래스 제거
-            priceButtons.forEach(b => b.classList.remove('active'));
+            priceButtons.forEach(btn => btn.classList.remove('active'));
             
-            // 클릭된 버튼에 active 클래스 추가
+            // 클릭한 버튼에 active 클래스 추가
             this.classList.add('active');
             
-            // 가격 필터링 로직 (실제 구현에서는 상품 데이터를 필터링)
-            const priceRange = this.textContent.trim();
-            console.log(`가격 필터 적용: ${priceRange}`);
+            // 선택된 가격 값 가져오기
+            const selectedPrice = this.dataset.price;
+            console.log('선택된 가격:', selectedPrice + '원');
+            
+            // 여기에 실제 필터링 로직을 추가할 수 있습니다
+            // 예: filterProductsByPrice(selectedPrice);
+        });
+        
+        // 키보드 접근성 추가
+        button.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
         });
     });
 }
