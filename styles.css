@@ -1189,20 +1189,20 @@ body {
     
     .rolling-banner {
         width: 100%;
-        max-width: 720px;
-        height: 420px;
-        margin: 0 auto 15px;
-        border-radius: 8px;
+        max-width: 100%;
+        height: 300px;
+        margin: 0;
+        border-radius: 0;
         overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: none;
     }
     
     .banner-image {
-        width: 720px;
-        height: 420px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: center;
-        margin: auto;
+        margin: 0;
         display: block;
     }
     
@@ -1222,13 +1222,13 @@ body {
     .mobile-shopping {
         height: auto;
         min-height: 350px;
-        padding: 10px;
+        padding: 0;
         margin: 0;
     }
     
     .quick-menu-container {
         margin: 15px 0;
-        padding: 0 5px;
+        padding: 0 15px;
     }
     
     .quick-items {
@@ -1280,7 +1280,7 @@ body {
     
     .section-title {
         margin: 20px 0 12px;
-        padding: 0 5px;
+        padding: 0 15px;
     }
     
     .section-title h3 {
