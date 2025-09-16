@@ -528,6 +528,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // PC 버전 캐러셀 좌우 이동 버튼 기능
     initCarouselButtons();
     
+    // PC 버전 퀵메뉴 좌우 스크롤 기능
+    initQuickMenuScroll();
+    
     // 가격 필터 버튼 기능 초기화
     initPriceButtons();
 });
@@ -582,6 +585,47 @@ function initCarouselButtons() {
                 const maxScroll = carouselWrapper.scrollWidth - carouselWrapper.clientWidth;
                 const targetScroll = Math.min(maxScroll, currentScroll + (slideTotalWidth * visibleSlides));
                 carouselWrapper.scrollTo({
+                    left: targetScroll,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// 퀵메뉴 스크롤 기능
+function initQuickMenuScroll() {
+    const quickScrollButtons = document.querySelectorAll('.quick-scroll-btn');
+    
+    quickScrollButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const quickMenuContainer = this.closest('.quick-menu-container');
+            const quickItemsWrapper = quickMenuContainer.querySelector('.quick-items-wrapper');
+            const quickItems = quickMenuContainer.querySelector('.quick-items');
+            const quickItemsList = quickItems.querySelectorAll('.mobile-quick-item');
+            
+            if (quickItemsList.length === 0) return;
+            
+            const itemWidth = quickItemsList[0].offsetWidth;
+            const itemMargin = parseInt(getComputedStyle(quickItemsList[0]).marginRight) || 0;
+            const itemTotalWidth = itemWidth + itemMargin;
+            const containerWidth = quickItemsWrapper.clientWidth;
+            const visibleItems = Math.floor(containerWidth / itemTotalWidth);
+            
+            if (this.classList.contains('quick-scroll-prev')) {
+                // 이전 버튼: 현재 스크롤 위치에서 한 화면만큼 왼쪽으로
+                const currentScroll = quickItemsWrapper.scrollLeft;
+                const targetScroll = Math.max(0, currentScroll - (itemTotalWidth * visibleItems));
+                quickItemsWrapper.scrollTo({
+                    left: targetScroll,
+                    behavior: 'smooth'
+                });
+            } else if (this.classList.contains('quick-scroll-next')) {
+                // 다음 버튼: 현재 스크롤 위치에서 한 화면만큼 오른쪽으로
+                const currentScroll = quickItemsWrapper.scrollLeft;
+                const maxScroll = quickItemsWrapper.scrollWidth - quickItemsWrapper.clientWidth;
+                const targetScroll = Math.min(maxScroll, currentScroll + (itemTotalWidth * visibleItems));
+                quickItemsWrapper.scrollTo({
                     left: targetScroll,
                     behavior: 'smooth'
                 });

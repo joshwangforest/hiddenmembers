@@ -595,10 +595,55 @@ body {
     margin: 0 auto; /* PC에서 중앙 정렬 */
 }
 
+/* PC 버전 퀵메뉴 스크롤 버튼 스타일 */
+.quick-scroll-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e9ecef;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+.quick-scroll-btn:hover {
+    background: #e1f800;
+    border-color: #e1f800;
+    opacity: 1;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(225, 248, 0, 0.3);
+}
+
+.quick-scroll-btn i {
+    font-size: 12px;
+    color: #333;
+}
+
+.quick-scroll-btn:hover i {
+    color: #333;
+}
+
 
 .quick-items-wrapper {
     flex: 1;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
+}
+
+/* 웹킷 스크롤바 숨기기 */
+.quick-items-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 .quick-items {
@@ -1490,6 +1535,11 @@ body {
     
     /* 모바일에서는 캐러셀 버튼 숨기기 */
     .carousel-btn {
+        display: none;
+    }
+    
+    /* 모바일에서는 퀵메뉴 스크롤 버튼 숨기기 */
+    .quick-scroll-btn {
         display: none;
     }
     
