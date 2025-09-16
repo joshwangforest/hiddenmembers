@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // 메인 검색 기능
     const searchBtn = document.querySelector('.search-btn');
-    const mainSearchInput = document.querySelector('.main-search-input');
+    const mainSearchInput = document.querySelector('.main-search-input') || document.querySelector('input[type="text"]');
     
     function performMainSearch() {
         const searchTerm = mainSearchInput.value.trim();
@@ -29,18 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // 가격 슬라이더 기능
-    const priceSlider = document.querySelector('.price-slider');
-    const minPriceSpan = document.querySelector('.min-price');
-    const maxPriceSpan = document.querySelector('.max-price');
-    
-    if (priceSlider) {
-        priceSlider.addEventListener('input', function() {
-            const value = this.value;
-            minPriceSpan.textContent = `${value}만원`;
-            maxPriceSpan.textContent = `${value}만원`;
-        });
-    }
+    // 가격 슬라이더 기능 (현재 HTML에 없으므로 제거)
     
     // 브랜드 필터 기능
     const brandCheckboxes = document.querySelectorAll('.brand-list input[type="checkbox"]');
@@ -153,13 +142,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    function filterByPrice(maxPrice) {
-        const productItems = document.querySelectorAll('.mobile-product-item');
-        productItems.forEach(item => {
-            // 실제 구현에서는 상품 가격 정보를 확인
-            item.style.display = 'flex';
-        });
-    }
     
     function filterByBrand(brands) {
         const productItems = document.querySelectorAll('.mobile-product-item');

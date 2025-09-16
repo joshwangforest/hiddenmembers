@@ -595,30 +595,6 @@ body {
     margin: 0 auto; /* PC에서 중앙 정렬 */
 }
 
-.scroll-btn {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0.7;
-}
-
-.scroll-btn:hover {
-    background: #000;
-    color: white;
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.scroll-btn:active {
-    transform: scale(0.95);
-}
 
 .quick-items-wrapper {
     flex: 1;
@@ -1364,11 +1340,6 @@ body {
         touch-action: manipulation;
     }
     
-    .scroll-btn {
-        min-width: 40px;
-        min-height: 40px;
-        touch-action: manipulation;
-    }
     
     /* 간격 최적화 */
     .mobile-shopping > * + * {
