@@ -531,6 +531,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // PC 버전 퀵메뉴 좌우 스크롤 기능
     initQuickMenuScroll();
     
+    // PC 버전 퀵메뉴 마우스 드래그 기능
+    initQuickMenuDrag();
+    
+    // PC 버전 캐러셀 마우스 드래그 기능
+    initCarouselDrag();
+    
     // 가격 필터 버튼 기능 초기화
     initPriceButtons();
 });
@@ -631,5 +637,129 @@ function initQuickMenuScroll() {
                 });
             }
         });
+    });
+}
+
+// 퀵메뉴 마우스 드래그 기능 (PC 전용)
+function initQuickMenuDrag() {
+    const quickItemsWrappers = document.querySelectorAll('.quick-items-wrapper');
+    
+    quickItemsWrappers.forEach(wrapper => {
+        let isDragging = false;
+        let startX = 0;
+        let scrollLeft = 0;
+        
+        function setupDragEvents() {
+            // 기존 이벤트 리스너 제거
+            wrapper.removeEventListener('mousedown', handleMouseDown);
+            wrapper.removeEventListener('mouseleave', handleMouseLeave);
+            wrapper.removeEventListener('mouseup', handleMouseUp);
+            wrapper.removeEventListener('mousemove', handleMouseMove);
+            
+            // PC 환경에서만 마우스 드래그 기능 활성화
+            if (window.innerWidth > 768) {
+                wrapper.style.cursor = 'grab';
+                wrapper.addEventListener('mousedown', handleMouseDown);
+                wrapper.addEventListener('mouseleave', handleMouseLeave);
+                wrapper.addEventListener('mouseup', handleMouseUp);
+                wrapper.addEventListener('mousemove', handleMouseMove);
+            } else {
+                wrapper.style.cursor = 'default';
+            }
+        }
+        
+        function handleMouseDown(e) {
+            isDragging = true;
+            wrapper.style.cursor = 'grabbing';
+            startX = e.pageX - wrapper.offsetLeft;
+            scrollLeft = wrapper.scrollLeft;
+            e.preventDefault();
+        }
+        
+        function handleMouseLeave() {
+            isDragging = false;
+            wrapper.style.cursor = 'grab';
+        }
+        
+        function handleMouseUp() {
+            isDragging = false;
+            wrapper.style.cursor = 'grab';
+        }
+        
+        function handleMouseMove(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - wrapper.offsetLeft;
+            const walk = (x - startX) * 2; // 스크롤 속도 조절
+            wrapper.scrollLeft = scrollLeft - walk;
+        }
+        
+        // 초기 설정
+        setupDragEvents();
+        
+        // 윈도우 리사이즈 시 재설정
+        window.addEventListener('resize', setupDragEvents);
+    });
+}
+
+// 캐러셀 마우스 드래그 기능 (PC 전용)
+function initCarouselDrag() {
+    const carouselWrappers = document.querySelectorAll('.carousel-wrapper');
+    
+    carouselWrappers.forEach(wrapper => {
+        let isDragging = false;
+        let startX = 0;
+        let scrollLeft = 0;
+        
+        function setupDragEvents() {
+            // 기존 이벤트 리스너 제거
+            wrapper.removeEventListener('mousedown', handleMouseDown);
+            wrapper.removeEventListener('mouseleave', handleMouseLeave);
+            wrapper.removeEventListener('mouseup', handleMouseUp);
+            wrapper.removeEventListener('mousemove', handleMouseMove);
+            
+            // PC 환경에서만 마우스 드래그 기능 활성화
+            if (window.innerWidth > 768) {
+                wrapper.style.cursor = 'grab';
+                wrapper.addEventListener('mousedown', handleMouseDown);
+                wrapper.addEventListener('mouseleave', handleMouseLeave);
+                wrapper.addEventListener('mouseup', handleMouseUp);
+                wrapper.addEventListener('mousemove', handleMouseMove);
+            } else {
+                wrapper.style.cursor = 'default';
+            }
+        }
+        
+        function handleMouseDown(e) {
+            isDragging = true;
+            wrapper.style.cursor = 'grabbing';
+            startX = e.pageX - wrapper.offsetLeft;
+            scrollLeft = wrapper.scrollLeft;
+            e.preventDefault();
+        }
+        
+        function handleMouseLeave() {
+            isDragging = false;
+            wrapper.style.cursor = 'grab';
+        }
+        
+        function handleMouseUp() {
+            isDragging = false;
+            wrapper.style.cursor = 'grab';
+        }
+        
+        function handleMouseMove(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - wrapper.offsetLeft;
+            const walk = (x - startX) * 2; // 스크롤 속도 조절
+            wrapper.scrollLeft = scrollLeft - walk;
+        }
+        
+        // 초기 설정
+        setupDragEvents();
+        
+        // 윈도우 리사이즈 시 재설정
+        window.addEventListener('resize', setupDragEvents);
     });
 }

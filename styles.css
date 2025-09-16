@@ -639,11 +639,22 @@ body {
     -ms-overflow-style: none; /* IE and Edge */
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
+    /* PC 버전 마우스 드래그 최적화 */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: grab;
 }
 
 /* 웹킷 스크롤바 숨기기 */
 .quick-items-wrapper::-webkit-scrollbar {
     display: none;
+}
+
+/* PC 버전에서 드래그 중 커서 변경 */
+.quick-items-wrapper:active {
+    cursor: grabbing;
 }
 
 .quick-items {
@@ -821,6 +832,11 @@ body {
 
 .carousel-wrapper::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
+}
+
+/* PC 버전에서 드래그 중 커서 변경 */
+.carousel-wrapper:active {
+    cursor: grabbing;
 }
 
 .swiper-wrapper {
