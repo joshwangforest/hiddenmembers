@@ -584,12 +584,15 @@ body {
 .mobile-quick-menu {
     padding: 20px;
     background: white;
+    display: block; /* PC와 모바일 모두에서 표시 */
 }
 
 .quick-menu-container {
     display: flex;
     align-items: center;
     gap: 10px;
+    max-width: 1200px; /* PC에서 최대 너비 제한 */
+    margin: 0 auto; /* PC에서 중앙 정렬 */
 }
 
 .scroll-btn {
@@ -627,6 +630,8 @@ body {
     gap: 15px;
     transition: transform 0.3s ease;
     padding: 5px 0;
+    justify-content: center; /* PC에서 중앙 정렬 */
+    flex-wrap: wrap; /* PC에서 여러 줄로 표시 가능 */
 }
 
 .mobile-quick-item {
@@ -640,12 +645,16 @@ body {
     border-radius: 8px;
     transition: all 0.3s;
     flex-shrink: 0;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
 }
 
 .mobile-quick-item:hover {
-    background: #000;
-    color: #fff;
+    background: #e1f800;
+    color: #333;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(225, 248, 0, 0.3);
+    border-color: #e1f800;
 }
 
 .mobile-quick-item .quick-icon {
@@ -858,8 +867,8 @@ body {
     position: absolute;
     top: -5px;
     right: -5px;
-    background: #dc3545;
-    color: white;
+    background: #e1f800;
+    color: #333;
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 10px;
