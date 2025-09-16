@@ -499,9 +499,21 @@ document.addEventListener('DOMContentLoaded', function() {
         let velocityHistory = [];
         let maxScrollLeft = 0;
         
-        // 최대 스크롤 범위 계산
+        // 최대 스크롤 범위 계산 - 마지막 상품까지 정확히 설정
         function updateMaxScroll() {
-            maxScrollLeft = carouselWrapper.scrollWidth - carouselWrapper.clientWidth;
+            // 모든 상품 슬라이드의 총 너비에서 컨테이너 너비를 뺀 값
+            const slides = carouselWrapper.querySelectorAll('.carousel-slide');
+            if (slides.length > 0) {
+                const slideWidth = slides[0].offsetWidth;
+                const slideMargin = parseInt(getComputedStyle(slides[0]).marginRight) || 0;
+                const totalSlidesWidth = slides.length * (slideWidth + slideMargin);
+                const containerWidth = carouselWrapper.clientWidth;
+                
+                // 마지막 상품이 완전히 보이도록 계산
+                maxScrollLeft = Math.max(0, totalSlidesWidth - containerWidth);
+            } else {
+                maxScrollLeft = carouselWrapper.scrollWidth - carouselWrapper.clientWidth;
+            }
         }
         
         // 초기 최대 스크롤 범위 설정
@@ -510,8 +522,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // 윈도우 리사이즈 시 최대 스크롤 범위 업데이트
         window.addEventListener('resize', updateMaxScroll);
         
-        // 고성능 부드러운 스크롤 함수 - 개선된 버전
-        function smoothScrollTo(target, duration = 150) {
+        // 고성능 부드러운 스크롤 함수 - 개선된 버전 (더 빠르게)
+        function smoothScrollTo(target, duration = 100) {
             if (animationId) {
                 cancelAnimationFrame(animationId);
             }
@@ -581,12 +593,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 animationId = null;
             }
             
-            // 터치 최적화 설정
+            // 터치 최적화 설정 - 더 민감하게
             carouselWrapper.style.touchAction = 'none';
             carouselWrapper.style.userSelect = 'none';
+            carouselWrapper.style.webkitUserSelect = 'none';
+            carouselWrapper.style.webkitTouchCallout = 'none';
         }, { passive: true });
         
-        // 터치 이동 - 초정밀 스와이프 개선
+        // 터치 이동 - 초정밀 스와이프 개선 (더 민감하게)
         carouselWrapper.addEventListener('touchmove', function(e) {
             if (!isDragging) return;
             e.preventDefault();
@@ -597,18 +611,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // 실시간 속도 계산 - 더 정밀한 버전
             velocity = calculateVelocity(currentTouchX, currentTime);
             
-            // 즉시 스크롤 적용 (지연 없음) - 범위 제한
+            // 즉시 스크롤 적용 (지연 없음) - 더 민감한 반응
             const moveX = currentTouchX - startX;
             const newScrollLeft = currentX - moveX;
             
-            // 스크롤 범위 제한으로 빈 배경 방지
+            // 스크롤 범위 제한으로 빈 배경 방지 - 더 엄격한 제한
             carouselWrapper.scrollLeft = Math.max(0, Math.min(newScrollLeft, maxScrollLeft));
             
             lastTime = currentTime;
             lastX = currentTouchX;
         }, { passive: false });
         
-        // 터치 종료 - 고성능 관성 스크롤 개선
+        // 터치 종료 - 고성능 관성 스크롤 개선 (더 빠르게)
         carouselWrapper.addEventListener('touchend', function() {
             if (!isDragging) return;
             isDragging = false;
@@ -616,12 +630,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // 스타일 복원
             carouselWrapper.style.touchAction = 'auto';
             carouselWrapper.style.userSelect = 'auto';
+            carouselWrapper.style.webkitUserSelect = 'auto';
+            carouselWrapper.style.webkitTouchCallout = 'auto';
             
-            // 강화된 관성 스크롤 - 범위 제한
-            if (Math.abs(velocity) > 0.03) {
-                const inertia = velocity * 200; // 관성 강도 조정
+            // 강화된 관성 스크롤 - 더 빠르고 민감하게
+            if (Math.abs(velocity) > 0.01) { // 임계값 낮춤 (0.03 → 0.01)
+                const inertia = velocity * 400; // 관성 강도 대폭 증가 (200 → 400)
                 const targetScroll = carouselWrapper.scrollLeft - inertia;
-                smoothScrollTo(targetScroll, 120); // 더 빠른 애니메이션
+                smoothScrollTo(targetScroll, 80); // 더 빠른 애니메이션 (120 → 80)
             }
         }, { passive: true });
         
@@ -688,11 +704,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 carouselWrapper.style.pointerEvents = 'auto';
                 carouselWrapper.style.touchAction = 'auto';
                 
-                // 강화된 관성 스크롤 적용 - 범위 제한
-                if (Math.abs(mouseVelocity) > 0.03) {
-                    const inertia = mouseVelocity * 200;
+                // 강화된 관성 스크롤 적용 - 범위 제한 (더 빠르게)
+                if (Math.abs(mouseVelocity) > 0.01) { // 임계값 낮춤 (0.03 → 0.01)
+                    const inertia = mouseVelocity * 400; // 관성 강도 대폭 증가 (200 → 400)
                     const targetScroll = carouselWrapper.scrollLeft - inertia;
-                    smoothScrollTo(targetScroll, 100);
+                    smoothScrollTo(targetScroll, 60); // 더 빠른 애니메이션 (100 → 60)
                 }
                 
                 // 이벤트 리스너 제거
@@ -715,14 +731,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // 커서 스타일 설정
         carouselWrapper.style.cursor = 'grab';
         
-        // 마우스 휠 스크롤 - 고성능 버전 개선
+        // 마우스 휠 스크롤 - 고성능 버전 개선 (더 빠르게)
         carouselWrapper.addEventListener('wheel', function(e) {
             e.preventDefault();
             const delta = e.deltaY;
             const currentScroll = carouselWrapper.scrollLeft;
-            const targetScroll = currentScroll + delta * 1.5; // 스크롤 속도 증가
+            const targetScroll = currentScroll + delta * 2.0; // 스크롤 속도 대폭 증가 (1.5 → 2.0)
             
-            smoothScrollTo(targetScroll, 80); // 더 빠른 애니메이션
+            smoothScrollTo(targetScroll, 60); // 더 빠른 애니메이션 (80 → 60)
         }, { passive: false });
         
         // 드래그 중 텍스트 선택 방지
