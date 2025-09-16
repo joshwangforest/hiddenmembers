@@ -475,36 +475,7 @@ document.addEventListener('DOMContentLoaded', function() {
         carouselWrapper.style.webkitUserSelect = 'none';
         carouselWrapper.style.webkitTouchCallout = 'none';
         
-        // 우측 이동 시 마지막 상품 정보를 끝으로 설정
-        function updateMaxScroll() {
-            const slides = carouselWrapper.querySelectorAll('.carousel-slide');
-            if (slides.length > 0) {
-                const slideWidth = slides[0].offsetWidth;
-                const slideMargin = parseInt(getComputedStyle(slides[0]).marginRight) || 0;
-                const totalSlidesWidth = slides.length * (slideWidth + slideMargin);
-                const containerWidth = carouselWrapper.clientWidth;
-                
-                // 마지막 상품이 완전히 보이도록 계산
-                const maxScrollLeft = Math.max(0, totalSlidesWidth - containerWidth);
-                carouselWrapper.setAttribute('data-max-scroll', maxScrollLeft);
-            }
-        }
-        
-        // 초기 최대 스크롤 범위 설정
-        updateMaxScroll();
-        
-        // 윈도우 리사이즈 시 최대 스크롤 범위 업데이트
-        window.addEventListener('resize', updateMaxScroll);
-        
-        // 스크롤 이벤트로 범위 제한
-        carouselWrapper.addEventListener('scroll', function() {
-            const maxScrollLeft = parseFloat(carouselWrapper.getAttribute('data-max-scroll')) || 0;
-            if (carouselWrapper.scrollLeft > maxScrollLeft) {
-                carouselWrapper.scrollLeft = maxScrollLeft;
-            }
-        });
-        
-        // 드래그 중 커서 변경 (PC 환경)
+            // 드래그 중 커서 변경 (PC 환경)
         carouselWrapper.addEventListener('mousedown', function() {
             carouselWrapper.style.cursor = 'grabbing';
         });
@@ -691,7 +662,10 @@ function initQuickMenuDrag() {
             e.preventDefault();
             const x = e.pageX - wrapper.offsetLeft;
             const walk = (x - startX) * 2; // 스크롤 속도 조절
-            wrapper.scrollLeft = scrollLeft - walk;
+            const newScrollLeft = scrollLeft - walk;
+            
+            // 좌우 끝까지 이동 가능하도록 범위 제한 제거
+            wrapper.scrollLeft = newScrollLeft;
         }
         
         // 초기 설정
@@ -753,7 +727,10 @@ function initCarouselDrag() {
             e.preventDefault();
             const x = e.pageX - wrapper.offsetLeft;
             const walk = (x - startX) * 2; // 스크롤 속도 조절
-            wrapper.scrollLeft = scrollLeft - walk;
+            const newScrollLeft = scrollLeft - walk;
+            
+            // 좌우 끝까지 이동 가능하도록 범위 제한 제거
+            wrapper.scrollLeft = newScrollLeft;
         }
         
         // 초기 설정
