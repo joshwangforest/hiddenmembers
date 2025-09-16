@@ -1189,20 +1189,20 @@ body {
     
     .rolling-banner {
         width: 100%;
-        max-width: 100%;
-        height: 300px;
-        margin: 0;
-        border-radius: 0;
+        max-width: 720px;
+        height: 320px;
+        margin: 0 auto 15px;
+        border-radius: 8px;
         overflow: hidden;
-        box-shadow: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     
     .banner-image {
-        width: 100%;
-        height: 100%;
+        width: 720px;
+        height: 320px;
         object-fit: cover;
         object-position: center;
-        margin: 0;
+        margin: auto;
         display: block;
     }
     
@@ -1227,7 +1227,7 @@ body {
     }
     
     .quick-menu-container {
-        margin: 15px 0;
+        margin: 10px 0;
         padding: 0 15px;
     }
     
@@ -1270,16 +1270,18 @@ body {
     }
     
     .mobile-quick-item span {
-        font-size: 11px;
-        line-height: 1.2;
-        font-weight: 600;
-        color: #2c3e50;
+        font-size: 12px;
+        line-height: 1.3;
+        font-weight: 700;
+        color: #1a1a1a;
         text-align: center;
         display: block;
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        letter-spacing: 0.5px;
     }
     
     .section-title {
-        margin: 20px 0 12px;
+        margin: 10px 0 8px;
         padding: 0 15px;
     }
     
