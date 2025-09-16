@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>히든멤버스</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-left">
+                    <span>B2B 히든멤버스와 함께 성장하세요.</span>
+                </div>
+                <div class="header-top-right">
+                    <a href="#" class="top-menu-link">마이페이지</a>
+                    <a href="#" class="top-menu-link">고객센터</a>
+                    <a href="#" class="top-menu-link">로그인</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="container">
+                <div class="logo">
+                    <img src="memberslogo.png" class="logo-image">
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="검색어를 입력하세요">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="header-icons">
+                    <a href="#" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-menu">
+                    <li class="nav-item dropdown">
+                        <a href="#">SHOP</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">전체</a></li>
+                            <li><a href="#">롯데ON</a></li>
+                            <li><a href="#">식품</a></li>
+                            <li><a href="#">생활/주방</a></li>
+                            <li><a href="#">디지털/가전</a></li>
+                            <li><a href="#">패션/뷰티</a></li>
+                            <li><a href="#">건강</a></li>
+                            <li><a href="#">가구/침구</a></li>
+                            <li><a href="#">레저/스포츠</a></li>
+                            <li><a href="#">차량</a></li>
+                            <li><a href="#">출산/육아</a></li>
+                            <li><a href="#">도서/취미/펫</a></li>
+                            <li><a href="#">편집샵</a></li>
+                            <li><a href="#">e쿠폰/상품권</a></li>
+                            <li><a href="#">선물하기</a></li>
+                            <li><a href="#">타임특가</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#">BRAND</a></li>
+                    <li class="nav-item"><a href="#">EVENT</a></li>
+                    <li class="nav-item"><a href="#">PROMOTION</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <!-- 좌우 분할 레이아웃 -->
+        <div class="split-layout">
+            <!-- 좌측: 검색 및 사이드바 -->
+            <aside class="left-sidebar">
+                <div class="search-section">
+                    <h3>상품 검색</h3>
+                    <div class="search-container">
+                        <input type="text" placeholder="상품명, 브랜드명을 입력하세요" class="main-search">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    
+                    <!-- 카테고리 필터 -->
+                    <div class="category-filter">
+                        <h4>카테고리</h4>
+                        <ul class="category-list">
+                            <li><a href="#" class="category-item active">전체</a></li>
+                            <li><a href="#" class="category-item">식품</a></li>
+                            <li><a href="#" class="category-item">생활/주방</a></li>
+                            <li><a href="#" class="category-item">디지털/가전</a></li>
+                            <li><a href="#" class="category-item">패션/뷰티</a></li>
+                            <li><a href="#" class="category-item">건강</a></li>
+                            <li><a href="#" class="category-item">가구/침구</a></li>
+                            <li><a href="#" class="category-item">레저/스포츠</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 가격 필터 -->
+                    <div class="price-filter">
+                        <h4>가격대</h4>
+                        <div class="price-range">
+                            <div class="price-buttons">
+                                <button class="price-btn" data-price="50000">5만원 이하</button>
+                                <button class="price-btn" data-price="100000">10만원 이하</button>
+                                <button class="price-btn" data-price="200000">20만원 이하</button>
+                                <button class="price-btn" data-price="300000">30만원 이하</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 브랜드 필터 -->
+                    <div class="brand-filter">
+                        <h4>브랜드</h4>
+                        <div class="brand-search">
+                            <input type="text" placeholder="브랜드명 검색" class="brand-search-input">
+                        </div>
+                        <ul class="brand-list">
+                            <li><label><input type="checkbox"> 롯데</label></li>
+                            <li><label><input type="checkbox"> 메종키츠네</label></li>
+                            <li><label><input type="checkbox"> 꼼데가르송</label></li>
+                            <li><label><input type="checkbox"> 스투시</label></li>
+                            <li><label><input type="checkbox"> 천호앤케어</label></li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+            
+            <!-- 우측: 모바일 형태 쇼핑몰 -->
+            <section class="mobile-shopping">
+                
+                <!-- 롤링 배너 -->
+                <div class="rolling-banner">
+                    <div class="banner-container">
+                        <div class="banner-slide active">
+                            <div class="banner-content">
+                                <img src="https://wellotte.com/data/mmdl/2025/07/01/20250701122644603.507074.png" alt="배너 이미지" class="banner-image">
+                            </div>
+                        </div>
+                        <div class="banner-slide">
+                            <div class="banner-content">
+                                <img src="https://wellotte.com/data/mmdl/2025/07/01/20250701122644603.507074.png" alt="배너 이미지" class="banner-image">
+                            </div>
+                        </div>
+                        <div class="banner-slide">
+                            <div class="banner-content">
+                                <img src="https://wellotte.com/data/mmdl/2025/07/01/20250701122644603.507074.png" alt="배너 이미지" class="banner-image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                    </div>
+                </div>
+
+                <!-- 모바일 퀵 메뉴 -->
+                <div class="mobile-quick-menu">
+                    <div class="quick-menu-container">
+                        <button class="scroll-btn prev-btn" onclick="scrollQuickMenu('left')" type="button">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="quick-items-wrapper">
+                            <div class="quick-items">
+                                <a href="#" class="mobile-quick-item">
+                                    <div class="quick-icon">
+                                        <img src="data/cuseok icon.png" alt="추석기획전" class="icon-image">
+                                    </div>
+                                    <span>추석기획전</span>
+                                </a>
+                                <a href="#" class="mobile-quick-item">
+                                    <div class="quick-icon">
+                                        <img src="data/brand icon.png" alt="브랜드" class="icon-image brand-icon">
+                                    </div>
+                                    <span>브랜드</span>
+                                </a>
+                                <a href="#" class="mobile-quick-item">
+                                    <div class="quick-icon">
+                                        <img src="data/gift icon.png" alt="선물하기" class="icon-image">
+                                    </div>
+                                    <span>선물하기</span>
+                                </a>
+                                <a href="#" class="mobile-quick-item">
+                                    <div class="quick-icon">
+                                        <img src="data/money icon.png" alt="상품권" class="icon-image">
+                                    </div>
+                                    <span>상품권</span>
+                                </a>
+                                <a href="#" class="mobile-quick-item">
+                                    <div class="quick-icon">
+                                        <img src="data/golf icon.png" alt="골프" class="icon-image">
+                                    </div>
+                                    <span>골프</span>
+                                </a>
+                            </div>
+                        </div>
+                        <button class="scroll-btn next-btn" onclick="scrollQuickMenu('right')" type="button">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 모바일 상품 섹션 -->
+                <div class="mobile-products">
+                    <div class="section-title">
+                        <h3>오! 마이 찬스딜 😊</h3>
+                        <p>단, 5일 동안만 누릴 수 있는 쇼핑찬스</p>
+                    </div>
+                    
+                    <div class="promotion-banner">
+                        <img src="https://img.forestcorp.io/V83cz6dvXY" alt="프로모션 배너" class="promotion-img">
+                    </div>
+                    
+                    <!-- 캐러셀 01 -->
+                    <div class="product-carousel carousel-01">
+                        <div class="carousel-container">
+                            <div class="carousel-wrapper">
+                                <div class="swiper-wrapper">
+                                    <div class="carousel-slide">
+                                        <a href="#goods" class="product-link">
+                                            <div class="product-img">
+                                                <img src="https://gnsfood.speedgabia.com/image/torifarm/105131.jpg" alt="농협안심한우 구이선물세트">
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="product-brand">농협안심한우</div>
+                                                <div class="product-name">[농협안심한우] 1등급 한우 구이선물세트1호 1.2kg</div>
+                                                <div class="product-badge">
+                                                    <span class="member-only">회원전용</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="carousel-slide">
+                                        <a href="#goods" class="product-link">
+                                            <div class="product-img">
+                                                <img src="https://gnsfood.speedgabia.com/image/torifarm/105131.jpg" alt="농협안심한우 구이선물세트">
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="product-brand">농협안심한우</div>
+                                                <div class="product-name">[농협안심한우] 1등급 한우 구이선물세트2호 1.5kg</div>
+                                                <div class="product-badge">
+                                                    <span class="member-only">회원전용</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="carousel-slide">
+                                        <a href="#goods" class="product-link">
+                                            <div class="product-img">
+                                                <img src="https://gnsfood.speedgabia.com/image/torifarm/105131.jpg" alt="농협안심한우 구이선물세트">
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="product-brand">농협안심한우</div>
+                                                <div class="product-name">[농협안심한우] 1등급 한우 구이선물세트3호 2.0kg</div>
+                                                <div class="product-badge">
+                                                    <span class="member-only">회원전용</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="carousel-slide">
+                                        <a href="#goods" class="product-link">
+                                            <div class="product-img">
+                                                <img src="https://gnsfood.speedgabia.com/image/torifarm/105131.jpg" alt="농협안심한우 구이선물세트">
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="product-brand">농협안심한우</div>
+                                                <div class="product-name">[농협안심한우] 프리미엄 한우 구이세트 1.8kg</div>
+                                                <div class="product-badge">
+                                                    <span class="member-only">회원전용</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="carousel-slide">
+                                        <a href="#goods" class="product-link">
+                                            <div class="product-img">
+                                                <img src="https://gnsfood.speedgabia.com/image/torifarm/105131.jpg" alt="농협안심한우 구이선물세트">
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="product-brand">농협안심한우</div>
+                                                <div class="product-name">[농협안심한우] 특급 한우 구이선물세트 2.5kg</div>
+                                                <div class="product-badge">
+                                                    <span class="member-only">회원전용</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">
+                        <h3>멤버스 베스트 아이템 👀</h3>
+                        <p>한눈에 보는 인기 아이템템</p>
+                    </div>
+                    
+                    <!-- 캐러셀 02 -->
+                    <div class="product-carousel carousel-02">
+                        <div class="carousel-container">
+                            <div class="carousel-wrapper">
+                                <div class="swiper-wrapper">
+                                    <div class="carousel-slide">
+                                        <a href="#goods" class="product-link">
+                                            <div class="product-img">
+                                                <img src="https://gnsfood.speedgabia.com/image/torifarm/105131.jpg" alt="농협안심한우 구이선물세트">
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="product-brand">농협안심한우</div>
+                                                <div class="product-name">[농협안심한우] 프리미엄 한우 구이세트 1.8kg</div>
+                                                <div class="product-badge">
+                                                    <span class="member-only">회원전용</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="carousel-slide">
+                                        <a href="#goods" class="product-link">
+                                            <div class="product-img">
+                                                <img src="https://gnsfood.speedgabia.com/image/torifarm/105131.jpg" alt="농협안심한우 구이선물세트">
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="product-brand">농협안심한우</div>
+                                                <div class="product-name">[농협안심한우] 특급 한우 구이선물세트 2.5kg</div>
+                                                <div class="product-badge">
+                                                    <span class="member-only">회원전용</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="carousel-slide">
+                                        <a href="#goods" class="product-link">
+                                            <div class="product-img">
+                                                <img src="https://gnsfood.speedgabia.com/image/torifarm/105131.jpg" alt="농협안심한우 구이선물세트">
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="product-brand">농협안심한우</div>
+                                                <div class="product-name">[농협안심한우] 명절 한우 구이세트 3.0kg</div>
+                                                <div class="product-badge">
+                                                    <span class="member-only">회원전용</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="carousel-slide">
+                                        <a href="#goods" class="product-link">
+                                            <div class="product-img">
+                                                <img src="https://gnsfood.speedgabia.com/image/torifarm/105131.jpg" alt="농협안심한우 구이선물세트">
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="product-brand">농협안심한우</div>
+                                                <div class="product-name">[농협안심한우] 럭셔리 한우 구이세트 2.2kg</div>
+                                                <div class="product-badge">
+                                                    <span class="member-only">회원전용</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="carousel-slide">
+                                        <a href="#goods" class="product-link">
+                                            <div class="product-img">
+                                                <img src="https://gnsfood.speedgabia.com/image/torifarm/105131.jpg" alt="농협안심한우 구이선물세트">
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="product-brand">농협안심한우</div>
+                                                <div class="product-name">[농협안심한우] 프리미엄 구이선물세트 1.6kg</div>
+                                                <div class="product-badge">
+                                                    <span class="member-only">회원전용</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보 처리방침</a>
+                    <a href="#">고객센터</a>
+                </div>
+                
+                <div class="footer-info">
+                    <p>주식회사 포레스트커머스 대표 왕태웅</p>
+                    <p>사업자등록번호 : 801-88-01977</p>
+                    <p>통신판매업신고번호 : 2022-서울구로-1383호</p>
+                    <p>주소 : 서울시 구로구 부광로 96-5, 구로에이스캠프 401호</p>
+                    <p>고객센터 : 02-2088-1665 (평일 10:00-17:00)</p>
+                    <p>이메일 : team@forestcorp.io</p>
+                    <p>개인정보처리책임자 : 양재학</p>
+                </div>
+                
+                <div class="footer-notice">
+                    <p>히든멤버스는 주식회사 포레스트커머스가 제공하는 쇼핑몰로서 모든 서비스는 주식회사 포레스트커머스의 책임하에 운영 됩니다.</p>
+                </div>
+                
+                <div class="footer-copyright">
+                    <p>COPYRIGHT© 히든멤버스. ALL RIGHT RESERVED</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 모바일 메뉴 -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-items">
+            <a href="#" class="mobile-menu-item">
+                <i class="fas fa-home"></i>
+                <span>HOME</span>
+            </a>
+            <a href="#" class="mobile-menu-item">
+                <i class="fas fa-shopping-bag"></i>
+                <span>SHOP</span>
+            </a>
+            <a href="#" class="mobile-menu-item">
+                <i class="fas fa-receipt"></i>
+                <span>ORDER</span>
+            </a>
+            <a href="#" class="mobile-menu-item">
+                <i class="fas fa-user"></i>
+                <span>MY</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
