@@ -665,8 +665,8 @@ body {
     display: flex;
     gap: 15px;
     transition: transform 0.3s ease;
-    padding: 5px 0;
-    justify-content: center; /* PC에서 중앙 정렬 */
+    padding: 5px 15px; /* 좌우 패딩 추가하여 아이콘이 잘리지 않도록 */
+    justify-content: flex-start; /* 왼쪽부터 시작하여 모든 아이콘이 보이도록 */
     flex-wrap: nowrap; /* 1행으로 고정 */
 }
 
